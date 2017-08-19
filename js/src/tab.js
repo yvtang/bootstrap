@@ -164,7 +164,7 @@ class Tab {
       $(active)
         .removeClass(ClassName.SHOW)
         .one(Util.TRANSITION_END, complete)
-        .emulateTransitionEnd(transitionDuration)
+      Util.emulateTransitionEnd(active, transitionDuration)
     } else {
       complete()
     }
