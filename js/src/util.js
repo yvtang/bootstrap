@@ -1,4 +1,4 @@
-import Event from './dom/event'
+import EventHandler from './dom/eventHandler'
 
 /**
  * --------------------------------------------------------------------------
@@ -54,6 +54,7 @@ const Util = {
     let transitionDuration = $(element).css('transition-duration')
     let transitionDelay = $(element).css('transition-delay')
 
+<<<<<<< HEAD
     const floatTransitionDuration = parseFloat(transitionDuration)
     const floatTransitionDelay = parseFloat(transitionDelay)
 
@@ -105,10 +106,61 @@ const Util = {
             `${componentName.toUpperCase()}: ` +
             `Option "${property}" provided type "${valueType}" ` +
             `but expected type "${expectedTypes}".`)
+=======
+      // If multiple durations are defined, take the first
+      transitionDuration = transitionDuration.split(',')[0]
+
+      return parseFloat(transitionDuration) * MILLISECONDS_MULTIPLIER
+    },
+
+    reflow(element) {
+      return element.offsetHeight
+    },
+
+    triggerTransitionEnd(element) {
+      EventHandler.trigger(element, Util.TRANSITION_END)
+    },
+
+    // TODO: Remove in v5
+    supportsTransitionEnd() {
+      return Boolean(TRANSITION_END)
+    },
+
+    isElement(obj) {
+      return (obj[0] || obj).nodeType
+    },
+
+    emulateTransitionEnd(element, duration) {
+      setTimeout(() => {
+        Util.triggerTransitionEnd(element)
+      }, duration)
+    },
+
+    typeCheckConfig(componentName, config, configTypes) {
+      for (const property in configTypes) {
+        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+          const expectedTypes = configTypes[property]
+          const value         = config[property]
+          const valueType     = value && Util.isElement(value)
+            ? 'element' : toType(value)
+
+          if (!new RegExp(expectedTypes).test(valueType)) {
+            throw new Error(
+              `${componentName.toUpperCase()}: ` +
+              `Option "${property}" provided type "${valueType}" ` +
+              `but expected type "${expectedTypes}".`)
+          }
+>>>>>>> alert without jquery
         }
       }
     }
   }
+<<<<<<< HEAD
 }
+=======
+
+  return Util
+})()
+>>>>>>> alert without jquery
 
 export default Util
