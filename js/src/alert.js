@@ -74,120 +74,64 @@ class Alert {
   }
 
   dispose() {
-    $.removeData(this._element, DATA_KEY)
+    Data.removeData(this._element, DATA_KEY)
     this._element = null
   }
 
   // Private
 
-<<<<<<< HEAD
   _getRootElement(element) {
     const selector = Util.getSelectorFromElement(element)
     let parent     = false
-=======
-      if (customEvent.defaultPrevented) {
-        return
-      }
->>>>>>> alert without jquery
 
     if (selector) {
-      parent = document.querySelector(selector)
+      const tmpSelected = SelectorEngine.find(selector)
+      parent = tmpSelected[0]
     }
 
-<<<<<<< HEAD
     if (!parent) {
-      parent = $(element).closest(`.${ClassName.ALERT}`)[0]
-=======
-    dispose() {
-      Data.removeData(this._element, DATA_KEY)
-      this._element = null
->>>>>>> alert without jquery
+      parent = SelectorEngine.closest(element, `.${ClassName.ALERT}`)
     }
 
     return parent
   }
 
   _triggerCloseEvent(element) {
-    const closeEvent = $.Event(Event.CLOSE)
-
-<<<<<<< HEAD
-    $(element).trigger(closeEvent)
-    return closeEvent
+    return EventHandler.trigger(element, Event.CLOSE)
   }
 
   _removeElement(element) {
-    $(element).removeClass(ClassName.SHOW)
-=======
-      if (selector) {
-        const tmpSelected = SelectorEngine.find(selector)
-        parent = tmpSelected[0]
-      }
+    element.classList.remove(ClassName.SHOW)
 
-      if (!parent) {
-        parent = SelectorEngine.closest(element, `.${ClassName.ALERT}`)
-      }
->>>>>>> alert without jquery
-
-    if (!$(element).hasClass(ClassName.FADE)) {
+    if (!Util.supportsTransitionEnd() ||
+        !element.classList.contains(ClassName.FADE)) {
       this._destroyElement(element)
       return
     }
 
-<<<<<<< HEAD
     const transitionDuration = Util.getTransitionDurationFromElement(element)
 
-    $(element)
-      .one(Util.TRANSITION_END, (event) => this._destroyElement(element, event))
-
-    Util.emulateTransitionEnd(transitionDuration)
+    EventHandler
+      .one(element, Util.TRANSITION_END, (event) => this._destroyElement(element, event))
+    Util.emulateTransitionEnd(element, transitionDuration)
   }
-=======
-    _triggerCloseEvent(element) {
-      return EventHandler.trigger(element, Event.CLOSE)
-    }
-
-    _removeElement(element) {
-      element.classList.remove(ClassName.SHOW)
-
-      if (!Util.supportsTransitionEnd() ||
-          !element.classList.contains(ClassName.FADE)) {
-        this._destroyElement(element)
-        return
-      }
->>>>>>> alert without jquery
 
   _destroyElement(element) {
-    $(element)
-      .detach()
-      .trigger(Event.CLOSED)
-      .remove()
+    EventHandler.trigger(element, Event.CLOSED)
+    element.parentNode.removeChild(element)
   }
 
-<<<<<<< HEAD
   // Static
 
   static _jQueryInterface(config) {
     return this.each(function () {
-      const $element = $(this)
-      let data       = $element.data(DATA_KEY)
-=======
-      EventHandler
-        .one(element, Util.TRANSITION_END, (event) => this._destroyElement(element, event))
-      Util.emulateTransitionEnd(element, transitionDuration)
-    }
-
-    _destroyElement(element) {
-      EventHandler.trigger(element, Event.CLOSED)
-      element.parentNode.removeChild(element)
-    }
->>>>>>> alert without jquery
+      let data = Data.getData(this, DATA_KEY)
 
       if (!data) {
         data = new Alert(this)
-        $element.data(DATA_KEY, data)
+        Data.setData(this, DATA_KEY, data)
       }
 
-<<<<<<< HEAD
       if (config === 'close') {
         data[config](this)
       }
@@ -199,16 +143,6 @@ class Alert {
       if (event) {
         event.preventDefault()
       }
-=======
-    static _jQueryInterface(config) {
-      return this.each(function () {
-        let data = Data.getData(this, DATA_KEY)
-
-        if (!data) {
-          data = new Alert(this)
-          Data.setData(this, DATA_KEY, data)
-        }
->>>>>>> alert without jquery
 
       alertInstance.close(this)
     }
