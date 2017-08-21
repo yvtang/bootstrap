@@ -51,10 +51,9 @@ const Util = {
     }
 
     // Get transition-duration of the element
-    let transitionDuration = $(element).css('transition-duration')
-    let transitionDelay = $(element).css('transition-delay')
+    let transitionDuration = element.style.transitionDuration
+    let transitionDelay = element.style.transitionDelay
 
-<<<<<<< HEAD
     const floatTransitionDuration = parseFloat(transitionDuration)
     const floatTransitionDelay = parseFloat(transitionDelay)
 
@@ -75,7 +74,7 @@ const Util = {
   },
 
   triggerTransitionEnd(element) {
-    Event.trigger(element, Util.TRANSITION_END)
+    EventHandler.trigger(element, Util.TRANSITION_END)
   },
 
   // TODO: Remove in v5
@@ -106,61 +105,10 @@ const Util = {
             `${componentName.toUpperCase()}: ` +
             `Option "${property}" provided type "${valueType}" ` +
             `but expected type "${expectedTypes}".`)
-=======
-      // If multiple durations are defined, take the first
-      transitionDuration = transitionDuration.split(',')[0]
-
-      return parseFloat(transitionDuration) * MILLISECONDS_MULTIPLIER
-    },
-
-    reflow(element) {
-      return element.offsetHeight
-    },
-
-    triggerTransitionEnd(element) {
-      EventHandler.trigger(element, Util.TRANSITION_END)
-    },
-
-    // TODO: Remove in v5
-    supportsTransitionEnd() {
-      return Boolean(TRANSITION_END)
-    },
-
-    isElement(obj) {
-      return (obj[0] || obj).nodeType
-    },
-
-    emulateTransitionEnd(element, duration) {
-      setTimeout(() => {
-        Util.triggerTransitionEnd(element)
-      }, duration)
-    },
-
-    typeCheckConfig(componentName, config, configTypes) {
-      for (const property in configTypes) {
-        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
-          const expectedTypes = configTypes[property]
-          const value         = config[property]
-          const valueType     = value && Util.isElement(value)
-            ? 'element' : toType(value)
-
-          if (!new RegExp(expectedTypes).test(valueType)) {
-            throw new Error(
-              `${componentName.toUpperCase()}: ` +
-              `Option "${property}" provided type "${valueType}" ` +
-              `but expected type "${expectedTypes}".`)
-          }
->>>>>>> alert without jquery
         }
       }
     }
   }
-<<<<<<< HEAD
 }
-=======
-
-  return Util
-})()
->>>>>>> alert without jquery
 
 export default Util
