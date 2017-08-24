@@ -12,7 +12,8 @@
     "Button": false,
     "Carousel": false,
     "Simulator": false,
-    "EventHandler": false
+    "EventHandler": false,
+    "Data": false
   },
   "parserOptions": {
     "ecmaVersion": 5,
