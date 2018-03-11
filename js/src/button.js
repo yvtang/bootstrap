@@ -2,6 +2,7 @@ import Data from './dom/data'
 import EventHandler from './dom/eventHandler'
 import Manipulator from './dom/manipulator'
 import SelectorEngine from './dom/selectorEngine'
+import Util from './util'
 
 /**
  * --------------------------------------------------------------------------
@@ -179,8 +180,8 @@ EventHandler.on(document,
  * add .button to jQuery only if jQuery is present
  */
 
-if (typeof window.$ !== 'undefined' || typeof window.jQuery !== 'undefined') {
-  const $                   = window.$ || window.jQuery
+const $ = Util.jQuery
+if (typeof $ !== 'undefined') {
   const JQUERY_NO_CONFLICT  = $.fn[NAME]
   $.fn[NAME]                = Button._jQueryInterface
   $.fn[NAME].Constructor    = Button
