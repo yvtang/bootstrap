@@ -13,7 +13,6 @@
     "Carousel": false,
     "Simulator": false,
     "EventHandler": false,
-    "Data": false,
     "Manipulator": false
   },
   "parserOptions": {
