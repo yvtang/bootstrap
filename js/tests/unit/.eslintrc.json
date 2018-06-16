@@ -14,7 +14,8 @@
     "Carousel": false,
     "Simulator": false,
     "EventHandler": false,
-    "Manipulator": false
+    "Manipulator": false,
+    "SelectorEngine": false
   },
   "parserOptions": {
     "ecmaVersion": 5,
