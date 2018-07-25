@@ -181,7 +181,7 @@ class Carousel {
       this._interval = null
     }
 
-    if (this._config.interval && !this._isPaused) {
+    if (this._config && this._config.interval && !this._isPaused) {
       this._interval = setInterval(
         (document.visibilityState ? this.nextWhenVisible : this.next).bind(this),
         this._config.interval
@@ -282,25 +282,25 @@ class Carousel {
     }
 
     const start = (event) => {
-      if (this._pointerEvent && (event.originalEvent.pointerType === PointerType.TOUCH || event.originalEvent.pointerType === PointerType.PEN)) {
-        this.touchStartX = event.originalEvent.clientX
+      if (this._pointerEvent && (event.pointerType === PointerType.TOUCH || event.pointerType === PointerType.PEN)) {
+        this.touchStartX = event.clientX
       } else if (!this._pointerEvent) {
-        this.touchStartX = event.originalEvent.touches[0].clientX
+        this.touchStartX = event.touches[0].clientX
       }
     }
 
     const move = (event) => {
       // ensure swiping with one touch and not pinching
-      if (event.originalEvent.touches && event.originalEvent.touches.length > 1) {
+      if (event.touches && event.touches.length > 1) {
         this.touchDeltaX = 0
       } else {
-        this.touchDeltaX = event.originalEvent.touches[0].clientX - this.touchStartX
+        this.touchDeltaX = event.touches[0].clientX - this.touchStartX
       }
     }
 
     const end = (event) => {
-      if (this._pointerEvent && (event.originalEvent.pointerType === PointerType.TOUCH || event.originalEvent.pointerType === PointerType.PEN)) {
-        this.touchDeltaX = event.originalEvent.clientX - this.touchStartX
+      if (this._pointerEvent && (event.pointerType === PointerType.TOUCH || event.pointerType === PointerType.PEN)) {
+        this.touchDeltaX = event.clientX - this.touchStartX
       }
 
       this._handleSwipe()
@@ -464,6 +464,14 @@ class Carousel {
 
       activeElement.classList.add(directionalClassName)
       nextElement.classList.add(directionalClassName)
+
+      const nextElementInterval = parseInt(nextElement.getAttribute('data-interval'), 10)
+      if (nextElementInterval) {
+        this._config.defaultInterval = this._config.defaultInterval || this._config.interval
+        this._config.interval = nextElementInterval
+      } else {
+        this._config.interval = this._config.defaultInterval || this._config.interval
+      }
 
       const transitionDuration = Util.getTransitionDurationFromElement(activeElement)
 
