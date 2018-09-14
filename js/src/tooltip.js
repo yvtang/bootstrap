@@ -115,7 +115,7 @@ class Tooltip {
      * Popper - https://popper.js.org
      */
     if (typeof Popper === 'undefined') {
-      throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org/)')
+      throw new TypeError('Bootstrap\'s tooltips require Popper.js (https://popper.js.org)')
     }
 
     // private
@@ -189,7 +189,7 @@ class Tooltip {
 
       if (!context) {
         context = new this.constructor(
-          event.currentTarget,
+          event.delegateTarget,
           this._getDelegateConfig()
         )
         Data.setData(event.delegateTarget, dataKey, context)
@@ -337,7 +337,6 @@ class Tooltip {
 
       if (this.tip.classList.contains(ClassName.FADE)) {
         const transitionDuration = Util.getTransitionDurationFromElement(this.tip)
-
         EventHandler.one(this.tip, Util.TRANSITION_END, complete)
         Util.emulateTransitionEnd(this.tip, transitionDuration)
       } else {
@@ -376,7 +375,7 @@ class Tooltip {
     // empty mouseover listeners we added for iOS support
     if ('ontouchstart' in document.documentElement) {
       Util.makeArray(document.body.children)
-        .forEach((element) => EventHandler.off(element, 'mouseover', Util.noop()))
+        .forEach((element) => EventHandler.off(element, 'mouseover', Util.noop))
     }
 
     this._activeTrigger[Trigger.CLICK] = false
@@ -385,7 +384,6 @@ class Tooltip {
 
     if (this.tip.classList.contains(ClassName.FADE)) {
       const transitionDuration = Util.getTransitionDurationFromElement(tip)
-
       EventHandler.one(tip, Util.TRANSITION_END, complete)
       Util.emulateTransitionEnd(tip, transitionDuration)
     } else {
@@ -526,8 +524,7 @@ class Tooltip {
 
   _fixTitle() {
     const titleType = typeof this.element.getAttribute('data-original-title')
-    if (this.element.getAttribute('title') ||
-        titleType !== 'string') {
+    if (this.element.getAttribute('title') || titleType !== 'string') {
       this.element.setAttribute(
         'data-original-title',
         this.element.getAttribute('title') || ''
@@ -694,11 +691,9 @@ class Tooltip {
   _fixTransition() {
     const tip = this.getTipElement()
     const initConfigAnimation = this.config.animation
-
     if (tip.getAttribute('x-placement') !== null) {
       return
     }
-
     tip.classList.remove(ClassName.FADE)
     this.config.animation = false
     this.hide()

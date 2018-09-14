@@ -312,7 +312,7 @@ class Dropdown {
   }
 
   _detectNavbar() {
-    return Util.makeArray(SelectorEngine.closest(this._element, '.navbar')).length > 0
+    return Boolean(SelectorEngine.closest(this._element, '.navbar'))
   }
 
   _getPopperConfig() {
@@ -359,7 +359,6 @@ class Dropdown {
 
     if (!data) {
       data = new Dropdown(element, _config)
-      Data.setData(element, DATA_KEY, data)
     }
 
     if (typeof config === 'string') {
