@@ -32,7 +32,7 @@ const files = [
     configPropertyName: 'js_hash'
   },
   {
-    file: 'site/docs/4.1/assets/js/vendor/jquery-slim.min.js',
+    file: 'site/static/assets/js/vendor/jquery-slim.min.js',
     configPropertyName: 'jquery_hash'
   },
   {
