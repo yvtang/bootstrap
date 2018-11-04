@@ -1,0 +1,11 @@
+{% if include.width %}
+  {% assign width = include.width %}
+{% else %}
+  {% assign width = '100%' %}
+{% endif %}
+{% if include.height %}
+  {% assign height = include.height %}
+{% else %}
+  {% assign height = 'auto' %}
+{% endif %}
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ width }}" height="{{ height }}" style="background-color: #777777; font-size: 27px;" fill="#dddddd"{% if include.class %} class="{{ include.class }}"{% endif %} viewBox="0 0 160 90">{% if include.title %}<title>{{ include.title }}</title>{% endif %}<text transform="translate(80)" y="52"><tspan x="0" text-anchor="middle">{{ width }}x{{ height }}</tspan></text></svg>
