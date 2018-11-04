@@ -13,10 +13,8 @@ Toasts are lightweight notifications designed to mimic the push notifications th
 Things to know when using the toast plugin:
 
 - If you're building our JavaScript from source, it [requires `util.js`]({{ site.baseurl }}/docs/{{ site.docs_version }}/getting-started/javascript/#util).
-- Toast are opt-in for performance reasons, so **you must initialize them yourself**.
-- Toast will automatically hide if you do not specify `autohide: false`.
-
-Keep reading to see how they work with some examples.
+- Toasts are opt-in for performance reasons, so **you must initialize them yourself**.
+- Toasts will automatically hide if you do not specify `autohide: false`.
 
 ## Examples
 
@@ -105,46 +103,9 @@ When you have multiple toasts, we default to vertiaclly stacking them in a reada
 {% include example.html content=example %}
 </div>
 
-## Accessibility
-
-Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and similar assistive technologies, you should wrap your toasts in an [`aria-live` region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions). Changes to live regions (such as injecting/updating a toast component) are automatically announced by screen readers without needing to move the user's focus or otherwise interrupt the user. Additionally, include `aria-atomic="true"` to ensure that the entire toast is always announced as a single (atomic) unit, rather than announcing what was changed (which could lead to problems if you only update part of the toast's content, or if displaying the same toast content at a later point in time). If the information needed is important for the process, e.g. for a list of errors in a form, then use the [alert component]({{ site.baseurl }}/docs/{{ site.docs_version }}/components/alerts/) instead of toast.
-
-Note that the live region needs to be present in the markup *before* the toast is generated or updated. If you dynamically generate both at the same time and inject them into the page, they will generally not be announced by assistive technologies.
-
-You also need to adapt the `role` and `aria-live` level depending on the content. If it's an important message like an error, use `role="alert" aria-live="assertive"`, otherwise use `role="status" aria-live="polite"` attributes.
-
-As the content you're displaying changes, be sure to update the [`delay` timeout](#options) to ensure people have enough time to read the toast.
-
-{% highlight html %}
-<div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
-  <div role="alert" aria-live="assertive" aria-atomic="true">...</div>
-</div>
-{% endhighlight %}
-
-When using `autohide: false`, you must add a close button to allow users to dismiss the toast.
-
-<div class="bg-light">
-{% capture example %}
-<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-  <div class="toast-header">
-    <span class="rounded mr-2 d-block bg-primary" style="width: 20px; height: 20px;"></span>
-    <strong class="mr-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="toast-body">
-    Hello, world! This is a toast message.
-  </div>
-</div>
-{% endcapture %}
-{% include example.html content=example %}
-</div>
-
 ## Placement
 
-Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you're only ever going to show one toast at a time, put the positioning styles right on the `.toast.`
+Place toasts with custom CSS as you need them. The top right is often used for notifications, as is the top middle. If you're only ever going to show one toast at a time, put the positioning styles right on the `.toast`.
 
 <div class="bg-dark">
 {% capture example %}
@@ -229,6 +190,43 @@ You can also get fancy with flexbox utilities to align toasts horizontally and/o
     <div class="toast-body">
       Hello, world! This is a toast message.
     </div>
+  </div>
+</div>
+{% endcapture %}
+{% include example.html content=example %}
+</div>
+
+## Accessibility
+
+Toasts are intended to be small interruptions to your visitors or users, so to help those with screen readers and similar assistive technologies, you should wrap your toasts in an [`aria-live` region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions). Changes to live regions (such as injecting/updating a toast component) are automatically announced by screen readers without needing to move the user's focus or otherwise interrupt the user. Additionally, include `aria-atomic="true"` to ensure that the entire toast is always announced as a single (atomic) unit, rather than announcing what was changed (which could lead to problems if you only update part of the toast's content, or if displaying the same toast content at a later point in time). If the information needed is important for the process, e.g. for a list of errors in a form, then use the [alert component]({{ site.baseurl }}/docs/{{ site.docs_version }}/components/alerts/) instead of toast.
+
+Note that the live region needs to be present in the markup *before* the toast is generated or updated. If you dynamically generate both at the same time and inject them into the page, they will generally not be announced by assistive technologies.
+
+You also need to adapt the `role` and `aria-live` level depending on the content. If it's an important message like an error, use `role="alert" aria-live="assertive"`, otherwise use `role="status" aria-live="polite"` attributes.
+
+As the content you're displaying changes, be sure to update the [`delay` timeout](#options) to ensure people have enough time to read the toast.
+
+{% highlight html %}
+<div class="toast" role="alert" aria-live="polite" aria-atomic="true" data-delay="10000">
+  <div role="alert" aria-live="assertive" aria-atomic="true">...</div>
+</div>
+{% endhighlight %}
+
+When using `autohide: false`, you must add a close button to allow users to dismiss the toast.
+
+<div class="bg-light">
+{% capture example %}
+<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+  <div class="toast-header">
+    <span class="rounded mr-2 d-block bg-primary" style="width: 20px; height: 20px;"></span>
+    <strong class="mr-auto">Bootstrap</strong>
+    <small>11 mins ago</small>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body">
+    Hello, world! This is a toast message.
   </div>
 </div>
 {% endcapture %}
