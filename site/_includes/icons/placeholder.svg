@@ -1,11 +1,26 @@
-{% if include.width %}
+{%- if include.width -%}
   {% assign width = include.width %}
-{% else %}
+{%- else -%}
   {% assign width = '100%' %}
-{% endif %}
-{% if include.height %}
+{%- endif -%}
+
+{%- if include.height -%}
   {% assign height = include.height %}
-{% else %}
-  {% assign height = 'auto' %}
-{% endif %}
-<svg xmlns="http://www.w3.org/2000/svg" width="{{ width }}" height="{{ height }}" style="background-color: #777777; font-size: 27px;" fill="#dddddd"{% if include.class %} class="{{ include.class }}"{% endif %} viewBox="0 0 160 90">{% if include.title %}<title>{{ include.title }}</title>{% endif %}<text transform="translate(80)" y="52"><tspan x="0" text-anchor="middle">{{ width }}x{{ height }}</tspan></text></svg>
+{%- else -%}
+  {% assign height = 180 %}
+{%- endif -%}
+
+{%- if include.text -%}
+  {% assign text = include.text %}
+{%- else -%}
+  {% assign text = width | append: 'x' | append: height %}
+{%- endif -%}
+
+{%- if include.class -%}
+  {% assign class = include.class | append: ' placeholder-img' %}
+{%- else -%}
+  {% assign class = 'placeholder-img' %}
+{%- endif -%}
+
+<svg class="{{ class }}" width="{{ width }}" height="{{ height }}" xmlns="http://www.w3.org/2000/svg"{% if include.viewBox %} viewBox="{{ include.viewBox }}"{% endif %}>{% if include.title %}<title>{{ include.title }}</title>{% endif %}<text x="50%" y="50%" dy=".3em">{{ text }}</text></svg>
+{{- '' -}}
