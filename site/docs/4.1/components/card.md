@@ -382,7 +382,7 @@ Turn an image into a card background and overlay your card's text. Depending on 
 
 {% capture example %}
 <div class="card bg-dark text-white">
-  {% include icons/placeholder.svg width="100%" height="270" class="card-img" text="Card image" title="Card image" %}
+  {% include icons/placeholder.svg width="100%" height="270" class="bd-placeholder-img-lg card-img" text="Card image" title="Card image" %}
   <div class="card-img-overlay">
     <h5 class="card-title">Card title</h5>
     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -650,7 +650,7 @@ Cards can be organized into [Masonry](https://masonry.desandro.com/)-like column
     </div>
   </div>
   <div class="card">
-    {% include icons/placeholder.svg width="100%" height="260" class="card-img-top" text="Image cap" title="Card image cap" %}
+    {% include icons/placeholder.svg width="100%" height="260" class="card-img" text="Card image" title="Card image" %}
   </div>
   <div class="card p-3 text-right">
     <blockquote class="blockquote mb-0">
